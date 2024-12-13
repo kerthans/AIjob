@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { BrainCircuit, Mail, Phone, MapPin } from 'lucide-react';
+import { BrainCircuit, Mail, Phone, } from 'lucide-react';
 import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
