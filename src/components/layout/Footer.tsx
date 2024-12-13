@@ -62,10 +62,10 @@ const Footer = () => {
                 <Mail className="h-5 w-5 text-blue-400" />
                 <span>contact@aitalenthub.com</span>
               </li>
-              <li className="flex items-center space-x-3">
+              {/* <li className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-blue-400" />
                 <span>北京市朝阳区科技园区</span>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -1,84 +1,75 @@
+// components/layout/Header.tsx
 'use client';
-import React from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { BrainCircuit, Menu, X } from 'lucide-react';
-import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+
+interface NavLink {
+  href: string;
+  label: string;
+}
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const navItems = [
-    { name: '平台优势', href: '#advantages' },
-    { name: '商业模式', href: '#business-model' },
-    { name: '行业洞察', href: '#insights' },
-    { name: '发展前景', href: '#future' },
-    { name: '联系我们', href: '#contact' }
+  const navLinks: NavLink[] = [
+    { href: "#hero", label: "首页" },
+    { href: "#features", label: "核心功能" },
+    { href: "#how-it-works", label: "服务流程" },
+    { href: "#platform-advantages", label: "平台优势" },
+    { href: "#market", label: "市场洞察" },
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b">
-      <div className="container mx-auto px-4">
+    <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
+      <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <BrainCircuit className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">AI Talent Hub</span>
+          <div className="flex-shrink-0">
+            <h1 className="text-2xl font-bold text-blue-600">AI灵工平台</h1>
           </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium"
+          
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-gray-600 hover:text-blue-600 transition-colors"
               >
-                {item.name}
-              </Link>
+                {link.label}
+              </a>
             ))}
-          </nav>
-
-          {/* Action Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline">预约演示</Button>
-            <Button>开始合作</Button>
+            <Button size="sm" className="bg-blue-600">立即入驻</Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="md:hidden">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? (
+                <X className="h-6 w-6 text-gray-600" />
+              ) : (
+                <Menu className="h-6 w-6 text-gray-600" />
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+          <div className="md:hidden py-4">
+            <div className="flex flex-col space-y-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name}
-                </Link>
+                  {link.label}
+                </a>
               ))}
-              <div className="mt-4 space-y-2">
-                <Button variant="outline" className="w-full">预约演示</Button>
-                <Button className="w-full">开始合作</Button>
-              </div>
+              <Button size="sm" className="bg-blue-600">立即入驻</Button>
             </div>
           </div>
         )}
-      </div>
+      </nav>
     </header>
   );
 };
